@@ -1,0 +1,22 @@
+<h1><%= @event.date %></h1>
+<p><%= @event.location %></p>
+
+<% if user_signed_in? && @event.creator == current_user %>
+  <%= link_to "Edit", edit_event_path(@event) %> |
+  <%= link_to "Destroy", event_path(@event),
+        data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+<% end %>
+
+<% if user_signed_in? %>
+  <% attendance = current_user.attendances.find_by(event: @event) %>
+
+  <% if attendance %>
+    <%= button_to "Cancel attendance",
+          event_attendance_path(@event, attendance),
+          method: :delete %>
+  <% else %>
+    <%= button_to "Attend",
+          event_attendances_path(@event),
+          method: :post %>
+  <% end %>
+<% end %>

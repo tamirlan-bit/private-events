@@ -1,0 +1,15 @@
+<% if user_signed_in? %>
+  <h1>My Created Events</h1>
+
+  <% current_user.created_events.each do |event| %>
+    <li>
+      <%= link_to "#{event.date} - #{event.location}", event_path(event) %>
+    </li>
+  <% end %>
+  
+  <%= link_to "Create a new event", new_event_path if user_signed_in? %>
+
+<% else %>
+  <h3> Sign up to or login to create  events </h3>
+  
+<% end %>

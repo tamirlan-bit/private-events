@@ -1,0 +1,16 @@
+<% if user_signed_in? %>
+  <h1>My Attending Events</h1>
+
+  <% current_user.attendances.each do |attendance| %>
+    <% event = attendance.event %>
+    <li>
+      <%= link_to "#{event.date} - #{event.location}", event_path(event) %>
+    </li>
+  <% end %>
+
+<% else %>
+  <h3> Sign up to or login to create  events </h3>
+
+<% end %>
+
+
