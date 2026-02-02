@@ -1,11 +1,26 @@
 <h1>All Events</h1>
 <ul>
+  <h3>Past Events</h3>
   <% @events.each do |event| %>
-    <li>
-      <%= link_to "#{event.date} - #{event.location}", event_path(event) %>
-    </li>
+    <% unless event.date.to_date > Date.current %>
+      <li>
+        <%= link_to "#{event.date} - #{event.location}", event_path(event) %>
+      </li>
+    <% end %>
   <% end %>
 </ul>
+<ul>
+  <h3>Upcoming Events</h3>
+  <% @events.each do |event| %>  
+    <% unless event.date.to_date < Date.current %>
+      <li>
+        <%= link_to "#{event.date} - #{event.location}", event_path(event) %>
+      </li>
+    <% end %>
+  <% end %>
+</ul>
+
+
 
 <% unless user_signed_in? %>
   <h3> Sign up to or login to create  events </h3>
