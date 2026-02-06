@@ -10,8 +10,12 @@
     <%= f.label :location %>
     <%= f.text_field :location %>
   </div>
+  <div>
+  <%= f.label :public, "Public Event" %>
+  <%= f.check_box :public %>
+</div>
 
   <div>
     <%= f.submit "Create Event" %>
   </div>
-<% end %>>
+<% end %>

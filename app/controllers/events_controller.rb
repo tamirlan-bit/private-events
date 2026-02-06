@@ -1,18 +1,12 @@
 class EventsController < ApplicationController
- 	before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
-  before_action :authorize_user!, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, except: [ :index, :show ]
+  before_action :set_event, only: [ :show, :edit, :update, :destroy ]
+  before_action :authorize_user!, only: [ :edit, :update, :destroy ]
 
-  def set_event
-  @event = Event.find(params[:id])
-  end
-
-  def authorize_user!
-  redirect_to events_path, alert: "Not allowed" unless @event.creator == current_user
-  end
 
   def index
-    @events = Event.all
+    @past_events = Event.public_events.past
+    @upcoming_events = Event.public_events.upcoming
   end
 
   def show
@@ -36,13 +30,16 @@ class EventsController < ApplicationController
   end
 
   def attending
+    @past_events = current_user.attended_events.past
+    @upcoming_events = current_user.attended_events.upcoming
   end
 
   def created
+    @past_events = current_user.created_events.past
+    @upcoming_events = current_user.created_events.upcoming
   end
 
   def update
-
     if @event.update(event_params)
       redirect_to @event
     else
@@ -63,6 +60,14 @@ class EventsController < ApplicationController
   private
 
   def event_params
-    params.require(:event).permit(:date, :location)
+    params.require(:event).permit(:date, :location, :public)
+  end
+
+  def set_event
+  @event = Event.find(params[:id])
+  end
+
+  def authorize_user!
+  redirect_to events_path, alert: "Not allowed" unless @event.creator == current_user
   end
 end

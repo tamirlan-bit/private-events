@@ -1,30 +1,17 @@
-<% if user_signed_in? %>
   <h1>My Attending Events</h1>
-    <h3>Past Events</h3>
-    <% current_user.attendances.each do |attendance| %>  
-    <% event = attendance.event %>
-      <% unless event.date.to_date > Date.current %>
-      <ul>
-        <li>
-          <%= link_to "#{event.date} - #{event.location}", event_path(event) %>
-        </li>
-      </ul>
-      <% end %>
-  <% end %>
+  <h3>Past Events</h3>
+  <ul>
+    <% @past_events.each do |event| %>  
+      <li>
+        <%= link_to "#{event.date} - #{event.location}", event_path(event) %>
+      </li>    
+    <% end %>
+  </ul>    
   <h3>Upcoming Events</h3>
-    <% current_user.attendances.each do |attendance| %>  
-    <% event = attendance.event %>
-    <% unless event.date.to_date < Date.current %>
-      <ul>
-        <li>
-          <%= link_to "#{event.date} - #{event.location}", event_path(event) %>
-        </li>
-      </ul>
-      <% end %>
-  <% end %>
-
-<% else %>
-  <h3> Sign up to or login to create  events </h3>
-
-<% end %>
-
+  <ul>
+    <% @upcoming_events.each do |event| %>    
+      <li>
+        <%= link_to "#{event.date} - #{event.location}", event_path(event) %>
+      </li>
+    <% end %>
+  </ul>
