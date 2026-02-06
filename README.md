@@ -1,24 +1,46 @@
-# README
+# Private Events
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A simple Ruby on Rails app where users can create events, attend events, and control whether events are public or private.
 
-Things you may want to cover:
+## Features
 
-* Ruby version
+* Authentication with Devise
+* Create and manage events
+* Attend / cancel attendance
+* Public and private event visibility
+* Past and upcoming event separation
+* Creator-only editing
 
-* System dependencies
+---
 
-* Configuration
+## Screenshots
 
-* Database creation
+### Public Events Index
 
-* Database initialization
+Shows all publicly visible events.
 
-* How to run the test suite
+![Public Events Index](app/assets/images/events_index.jpg)
 
-* Services (job queues, cache servers, search engines, etc.)
+---
 
-* Deployment instructions
+### Edit Event
 
-* ...
+Creators can set the date, location, and toggle event visibility.
+
+![Edit Event](app/assets/images/edit_event.jpg)
+
+---
+
+### Created Events
+
+Displays events created by the user, including private ones visible only to the creator.
+
+![Created Events](app/assets/images/created_events.jpg)
+
+---
+
+### Attending Events
+
+Shows the events a user is attending.
+
+![Attending Events](app/assets/images/attending.jpg)
